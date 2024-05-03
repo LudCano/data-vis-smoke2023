@@ -1,8 +1,8 @@
-
-from dash import Dash, dcc, html
+import matplotlib.pyplot as plt
+from dash import Dash, dcc, html, callback
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output
-
+from read_modules import *
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 txt = dcc.Markdown(children='Holi, esta es la aplicacion inicial')
 
@@ -40,18 +40,36 @@ sidebar = html.Div(
                 value=1
             )])
         ]),
+        dcc.Dropdown(
+            id='drpdwn_orig',
+            options=[{'label': i, 'value': i} for i in origin],
+            value = ""
+            ),
+        dcc.Dropdown(
+            id='drpdwn_var',
+            options=[{'label': i, 'value': i} for i in varss],
+            value = ""
+            ),
+        dcc.Dropdown(
+            id='drpdwn_place',
+            options=[{'label': i, 'value': i} for i in places],
+            value = ""
+            ),
+        
         html.Button(className='dropdown-button',
                 children=['Generar'],
-                id = 'generar_boton')
+                id = 'generar_boton'),
+        html.P('hola', id='textoprueba')
         ],
     style=SIDEBAR_STYLE,
 )
 
 
-@app.callback(
+
+@callback(
     Output('plots-container', 'children'),
-    [Input('drpdwn_filas', 'value'),
-     Input('drpdwn_cols', 'value')]
+    Input('drpdwn_filas', 'value'),
+     Input('drpdwn_cols', 'value')
 )
 def generar_matriz(nrows, ncols):
     print(f"Se escogieron {nrows} x {ncols}")
@@ -63,6 +81,39 @@ def generar_matriz(nrows, ncols):
         ch.append(dbc.Row(rw))
     return ch
     
+
+@callback(
+        Output('drpdwn_place', 'options'),
+        Output('drpdwn_var', 'options'),
+        Input('drpdwn_orig', 'value')  
+)
+def change_op2(var_picked2):
+    tabb = tab.copy()
+    tabb = tabb[tabb.origin == var_picked2]
+    nw_place = [{'label': i, 'value': i} for i in tabb.place.unique()]
+    nw_orig = [{'label': i, 'value': i} for i in tabb.variable.unique()]
+    return nw_place, nw_orig
+
+
+@callback(
+    Output('textoprueba', 'children'),
+    Input('drpdwn_place', 'value'),
+    Input('drpdwn_var', 'value'),
+    Input('drpdwn_orig', 'value'),
+    Input('generar_boton', 'n_clicks')
+)
+def print_picked(place, var, orig, n_clicks):
+    if n_clicks>0:
+        tabb = tab.copy()
+        pii = tabb[(tabb.place == place) & (tabb.origin == orig) & (tabb.variable == var)]
+        #print(pii.path)
+
+        if orig == "GOES":
+            d, m = read_goes(str(pii.path[0]), place)
+            print(d.head())
+
+        return str(pii.path[0])
+
 
 app.layout = html.Div([
     sidebar,
