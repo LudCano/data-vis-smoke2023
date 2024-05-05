@@ -1,23 +1,28 @@
-
-
 import pandas as pd
-import matplotlib.dates as mdates
 import numpy as np
+import matplotlib.dates as mdates
+import datetime as dt
+import pytz
+def get_times(pth):
+    d = pd.read_csv(pth, skiprows=6)
 
-tab = pd.read_csv('data.csv')
-varss = tab.variable.unique()
-places = tab.place.unique()
-origin = tab.origin.unique()
+    #working on reading the data and if necessary filter the data
+    d.time_start = pd.to_datetime(d.time_start)
+    d = d.sort_values('time_start')
+    d.reset_index(inplace=True)
+    datenum = mdates.date2num(d.time_start)
+    return datenum, d.time_start
 
-
-class goes:
-    def __init__(self, pth, place, units):
+class measurement:
+    def __init__(self, place, fullname, units, pth):
+        self.full_name = fullname
+        self.units = units
         d = pd.read_csv(pth, skiprows=6)
 
         #getting metadata just in case
         f = open(pth, 'r')
         m = f.readlines()
-        self.metadata = '  '.join(m[:6])
+        self._metadata = m[:6]
 
         #working on reading the data and if necessary filter the data
         d.time_start = pd.to_datetime(d.time_start)
@@ -25,156 +30,59 @@ class goes:
         d.reset_index(inplace=True)
         self.times = d.time_start.to_list()
         place = " " + place
-        self.values = np.array(d[place])
+        self.data = np.array(d[place])
         self.datenum = mdates.date2num(d.time_start)
         d = d.loc[:, ['time_start', place]]
         d['datenum'] = mdates.date2num(d.time_start)
         self.df = d
         self.path = pth
         self.units = units
-    def showmetadata(self):
-        #getting metadata just in case
-        f = open(self.path, 'r')
-        m = f.readlines()
-        for i in m[:6]:
+
+    def trim(self, idx0, idxf):
+        self.data = self.data[idx0:idxf]
+
+    def metadata(self):
+        for i in self._metadata:
             print(i)
 
-
-class cimel:
-    def __init__(self, pth, unidad, units):
+class goes:
+    def __init__(self, place):
+        table = pd.read_csv('data.csv')
+        go = table[table.origin == 'GOES']
+        go = go[go.place == place]
+        var_names = go.variable
+        units = go.units
+        pths = go.path
+        codes = [i.split('/')[-1].split('_')[0] for i in pths]
         
-        d = pd.read_csv(pth, skiprows=4)
+        for i, u, v, pt in zip(codes, units, var_names, pths):
+            setattr(self, i, measurement(place, v, u, pt))
 
-        #getting metadata just in case
-        f = open(pth, 'r')
-        m = f.readlines()
-        self.metadata = '  '.join(m[:4])
+        datenum, times = get_times(pt)
+        self.codes = codes
+        self.datenum = datenum
+        self.times_utc = times
+        self.times_local = pd.Series([i + dt.timedelta(hours = -4) for i in times])
+        self.variables = var_names.to_list()
+        self.vars_codes = "\n".join([j + "-->" + i for i,j in zip(var_names, codes)])
 
-        #working on reading the data and if necessary filter the data
-        d.date_local = pd.to_datetime(d.date_local)
-        d.reset_index(inplace=True)
-        if not unidad==None:
-            #d = d.loc[:, ['time_start', ' time_end', place]]
-            d = d.loc[:, ['date_local', unidad]]
-        d['numdate'] = mdates.date2num(d.date_local)
-        self.times = d.date_local.to_list()
-        self.datenum = np.array(d.numdate)
-        self.df = d
-        self.values = np.array(d[unidad])
-        self.path = pth
-        self.units = units
-    def showmetadata(self):
-        #getting metadata just in case
-        f = open(self.path, 'r')
-        m = f.readlines()
-        for i in m[:4]:
-            print(i)
+    def show_vars(self):
+        for i,j in zip(self.variables, self.codes):
+            print(i, " --> ", j)
 
-
-def read(origin,place,variable):
-    tab = pd.read_csv('data.csv')
-    tab2 = tab[(tab.origin == origin) & (tab.place == place) & (tab.variable == variable)]
-    if len(tab2) != 1:
-        print("Error, bad combination, returning None")
-        print("Your options were:")
-        print("Origin: ", origin)
-        print("Place:", place)
-        print("Variable", variable)
-        c = None
-    else:
-        if origin == "GOES":
-            c = goes(tab2.path.to_list()[0], place, tab2.units.to_list()[0])
-        elif origin == 'CIMEL':
-            c = cimel(tab2.path.to_list()[0], variable, tab2.units.to_list()[0])
-
-    return c
-
-### -------------------------
-### FUNCTIONS: DEPRECATED
-### -------------------------
-'''
-def read_goes(pth, place=None):
-    """Reads a GOES stations data file (.csv)
-    Doesn't work for vertical profiles, there's another function for that.
-
-    Args:
-        pth (str): Route to the datafile
-        place (str, optional): Place to get the data. Defaults to None.
-
-    Returns:
-        d: Dataframe of the data
-        m: Metadata that is the first 6 rows
-    """
-
-    d = pd.read_csv(pth, skiprows=6)
-
-    #getting metadata just in case
-    f = open(pth, 'r')
-    m = f.readlines()
-    m = '  '.join(m[:6])
-
-    #working on reading the data and if necessary filter the data
-    d.time_start = pd.to_datetime(d.time_start)
-    d = d.sort_values('time_start')
-    d.reset_index(inplace=True)
-    if not place==None:
-        place = " " + place
-        #d = d.loc[:, ['time_start', ' time_end', place]]
-        d = d.loc[:, ['time_start', place]]
-    d['numdate'] = mdates.date2num(d.time_start)
-
-    return d, m
+    def trim_times(self, dstart, dfinal):
+        def inner_trim(self, d0, df):
+            #l = self.times_local[self.times_local > d0]
+            msk = self.times_local[(self.times_local > d0) & (self.times_local < df)]
+            self.times_local = msk
+            idx0 = msk.index[0]
+            idxf = msk.index[-1]
+            self.times_utc = self.times_utc[idx0:idxf]
+            for i in self.codes:
+                self.__dict__[i].data = self.__dict__[i].data[idx0:idxf+1]
+                
+        d0 = pd.Timestamp(dstart, tz = -4)
+        df = pd.Timestamp(dfinal, tz = -4)
+        inner_trim(self,d0, df)
 
 
-def read_cimel(pth, unidad=None):
-    """Reads a CIMEL file data
-
-    Args:
-        pth (str): Route to the datafile
-        unidad (str, optional): Column to read. Defaults to None.
-                                Possibles columns are: AOD_500nm
-                                                    AOD_380nm
-                                                    PW
-                                                    EAE_440_870
-                                                    OAM
-                                                    Ozone
-                                                    NO2
-
-    Returns:
-        d: Dataframe of the data
-        m: Metadata that is the first 4 rows
-    """
-
-    d = pd.read_csv(pth, skiprows=4)
-
-    #getting metadata just in case
-    f = open(pth, 'r')
-    m = f.readlines()
-    m = '  '.join(m[:4])
-
-    #working on reading the data and if necessary filter the data
-    d.date_local = pd.to_datetime(d.date_local)
-    d.reset_index(inplace=True)
-    if not unidad==None:
-        #d = d.loc[:, ['time_start', ' time_end', place]]
-        d = d.loc[:, ['date_local', unidad]]
-    d['numdate'] = mdates.date2num(d.date_local)
-
-    return d, m
-'''
-
-
-if __name__ == '__main__':
-    
-    #pth = "0_Data\\0_OBS_data\\3_CIMEL\\cimel_La_Paz.csv"
-    #d, m = read_cimel(pth, 'Ozone')
-
-    #print(d.head(20))
-    #prueba = goes(pth, 'Ancohuma')
-    #print(prueba.values)
-    #print(prueba.times)
-    #print(prueba.df.head())
-    tst = read("GOES", "Ancohuma", "Cloud Top Height (ACHA)")
-    #tst = read("CIMEL", "La Paz", "AOD_500nm")
-    tst.showmetadata()
-    

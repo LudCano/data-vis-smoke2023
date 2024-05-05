@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 from dash import Dash, dcc, html, callback
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output
-from read_modules import *
+from read_modules_antiguo import *
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 txt = dcc.Markdown(children='Holi, esta es la aplicacion inicial')
 

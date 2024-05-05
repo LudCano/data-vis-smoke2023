@@ -1,35 +1,59 @@
 variable,units,origin,place,path
-Aerosol Optical Depth (AOD 550nm),AOD,GOES,LFA,0_Data\\3_SATELLITE_data\\1_GOES\\AOD_stations.csv
-Aerosol Optical Depth (AOD 550nm),AOD,GOES,Airport,0_Data\\3_SATELLITE_data\\1_GOES\\AOD_stations.csv
-Aerosol Optical Depth (AOD 550nm),AOD,GOES,CHC,0_Data\\3_SATELLITE_data\\1_GOES\\AOD_stations.csv
-Aerosol Optical Depth (AOD 550nm),AOD,GOES,Ancohuma,0_Data\\3_SATELLITE_data\\1_GOES\\AOD_stations.csv
-Cloud Optical Depth (COD 640nm),COD,GOES,LFA,0_Data\\3_SATELLITE_data\\1_GOES\\COD_stations.csv
-Cloud Optical Depth (COD 640nm),COD,GOES,Airport,0_Data\\3_SATELLITE_data\\1_GOES\\COD_stations.csv
-Cloud Optical Depth (COD 640nm),COD,GOES,CHC,0_Data\\3_SATELLITE_data\\1_GOES\\COD_stations.csv
-Cloud Optical Depth (COD 640nm),COD,GOES,Ancohuma,0_Data\\3_SATELLITE_data\\1_GOES\\COD_stations.csv
-Angstrom Exponet (470nm/860nm),AE,GOES,LFA,0_Data\\3_SATELLITE_data\\1_GOES\\AE_stations.csv
-Angstrom Exponet (470nm/860nm),AE,GOES,Airport,0_Data\\3_SATELLITE_data\\1_GOES\\AE_stations.csv
-Angstrom Exponet (470nm/860nm),AE,GOES,CHC,0_Data\\3_SATELLITE_data\\1_GOES\\AE_stations.csv
-Angstrom Exponet (470nm/860nm),AE,GOES,Ancohuma,0_Data\\3_SATELLITE_data\\1_GOES\\AE_stations.csv
-Cloud Top Height (ACHA),m,GOES,LFA,0_Data\\3_SATELLITE_data\\1_GOES\\CTH_stations.csv
-Cloud Top Height (ACHA),m,GOES,Airport,0_Data\\3_SATELLITE_data\\1_GOES\\CTH_stations.csv
-Cloud Top Height (ACHA),m,GOES,CHC,0_Data\\3_SATELLITE_data\\1_GOES\\CTH_stations.csv
-Cloud Top Height (ACHA),m,GOES,Ancohuma,0_Data\\3_SATELLITE_data\\1_GOES\\CTH_stations.csv
-Total Precipitable Water (TPW),mm,GOES,LFA,0_Data\\3_SATELLITE_data\\1_GOES\\TPW_stations.csv
-Total Precipitable Water (TPW),mm,GOES,Airport,0_Data\\3_SATELLITE_data\\1_GOES\\TPW_stations.csv
-Total Precipitable Water (TPW),mm,GOES,CHC,0_Data\\3_SATELLITE_data\\1_GOES\\TPW_stations.csv
-Total Precipitable Water (TPW),mm,GOES,Ancohuma,0_Data\\3_SATELLITE_data\\1_GOES\\TPW_stations.csv
-AOD_500nm,AOD,CIMEL,Chacaltaya,0_Data\\0_OBS_data\\3_CIMEL\\cimel_Chacaltaya.csv
-AOD_380nm,AOD,CIMEL,Chacaltaya,0_Data\\0_OBS_data\\3_CIMEL\\cimel_Chacaltaya.csv
-PW,cm,CIMEL,Chacaltaya,0_Data\\0_OBS_data\\3_CIMEL\\cimel_Chacaltaya.csv
-EAE_440_870,EAE,CIMEL,Chacaltaya,0_Data\\0_OBS_data\\3_CIMEL\\cimel_Chacaltaya.csv
-OAM,Dobson,CIMEL,Chacaltaya,0_Data\\0_OBS_data\\3_CIMEL\\cimel_Chacaltaya.csv
-Ozone,Dobson,CIMEL,Chacaltaya,0_Data\\0_OBS_data\\3_CIMEL\\cimel_Chacaltaya.csv
-NO2,Dobson?,CIMEL,Chacaltaya,0_Data\\0_OBS_data\\3_CIMEL\\cimel_Chacaltaya.csv
-AOD_500nm,AOD,CIMEL,La Paz,0_Data\\0_OBS_data\\3_CIMEL\\cimel_La_Paz.csv
-AOD_380nm,AOD,CIMEL,La Paz,0_Data\\0_OBS_data\\3_CIMEL\\cimel_La_Paz.csv
-PW,cm,CIMEL,La Paz,0_Data\\0_OBS_data\\3_CIMEL\\cimel_La_Paz.csv
-EAE_440_870,EAE,CIMEL,La Paz,0_Data\\0_OBS_data\\3_CIMEL\\cimel_La_Paz.csv
-OAM,Dobson,CIMEL,La Paz,0_Data\\0_OBS_data\\3_CIMEL\\cimel_La_Paz.csv
-Ozone,Dobson,CIMEL,La Paz,0_Data\\0_OBS_data\\3_CIMEL\\cimel_La_Paz.csv
-NO2,Dobson?,CIMEL,La Paz,0_Data\\0_OBS_data\\3_CIMEL\\cimel_La_Paz.csv
+Aerosol Optical Depth (AOD 550nm),AOD,GOES,LFA,0_Data/3_SATELLITE_data/1_GOES/AOD_stations.csv
+Aerosol Optical Depth (AOD 550nm),AOD,GOES,Airport,0_Data/3_SATELLITE_data/1_GOES/AOD_stations.csv
+Aerosol Optical Depth (AOD 550nm),AOD,GOES,CHC,0_Data/3_SATELLITE_data/1_GOES/AOD_stations.csv
+Aerosol Optical Depth (AOD 550nm),AOD,GOES,Ancohuma,0_Data/3_SATELLITE_data/1_GOES/AOD_stations.csv
+Cloud Optical Depth (COD 640nm),COD,GOES,LFA,0_Data/3_SATELLITE_data/1_GOES/COD_stations.csv
+Cloud Optical Depth (COD 640nm),COD,GOES,Airport,0_Data/3_SATELLITE_data/1_GOES/COD_stations.csv
+Cloud Optical Depth (COD 640nm),COD,GOES,CHC,0_Data/3_SATELLITE_data/1_GOES/COD_stations.csv
+Cloud Optical Depth (COD 640nm),COD,GOES,Ancohuma,0_Data/3_SATELLITE_data/1_GOES/COD_stations.csv
+Angstrom Exponet (470nm/860nm),AE,GOES,LFA,0_Data/3_SATELLITE_data/1_GOES/AE_stations.csv
+Angstrom Exponet (470nm/860nm),AE,GOES,Airport,0_Data/3_SATELLITE_data/1_GOES/AE_stations.csv
+Angstrom Exponet (470nm/860nm),AE,GOES,CHC,0_Data/3_SATELLITE_data/1_GOES/AE_stations.csv
+Angstrom Exponet (470nm/860nm),AE,GOES,Ancohuma,0_Data/3_SATELLITE_data/1_GOES/AE_stations.csv
+Cloud Top Height (ACHA),m,GOES,LFA,0_Data/3_SATELLITE_data/1_GOES/CTH_stations.csv
+Cloud Top Height (ACHA),m,GOES,Airport,0_Data/3_SATELLITE_data/1_GOES/CTH_stations.csv
+Cloud Top Height (ACHA),m,GOES,CHC,0_Data/3_SATELLITE_data/1_GOES/CTH_stations.csv
+Cloud Top Height (ACHA),m,GOES,Ancohuma,0_Data/3_SATELLITE_data/1_GOES/CTH_stations.csv
+Total Precipitable Water (TPW),mm,GOES,LFA,0_Data/3_SATELLITE_data/1_GOES/TPW_stations.csv
+Total Precipitable Water (TPW),mm,GOES,Airport,0_Data/3_SATELLITE_data/1_GOES/TPW_stations.csv
+Total Precipitable Water (TPW),mm,GOES,CHC,0_Data/3_SATELLITE_data/1_GOES/TPW_stations.csv
+Total Precipitable Water (TPW),mm,GOES,Ancohuma,0_Data/3_SATELLITE_data/1_GOES/TPW_stations.csv
+AOD_500nm,AOD,CIMEL,Chacaltaya,0_Data/0_OBS_data/3_CIMEL/cimel_Chacaltaya.csv
+AOD_380nm,AOD,CIMEL,Chacaltaya,0_Data/0_OBS_data/3_CIMEL/cimel_Chacaltaya.csv
+PW,cm,CIMEL,Chacaltaya,0_Data/0_OBS_data/3_CIMEL/cimel_Chacaltaya.csv
+EAE_440_870,EAE,CIMEL,Chacaltaya,0_Data/0_OBS_data/3_CIMEL/cimel_Chacaltaya.csv
+OAM,Dobson,CIMEL,Chacaltaya,0_Data/0_OBS_data/3_CIMEL/cimel_Chacaltaya.csv
+Ozone,Dobson,CIMEL,Chacaltaya,0_Data/0_OBS_data/3_CIMEL/cimel_Chacaltaya.csv
+NO2,Dobson?,CIMEL,Chacaltaya,0_Data/0_OBS_data/3_CIMEL/cimel_Chacaltaya.csv
+AOD_500nm,AOD,CIMEL,La Paz,0_Data/0_OBS_data/3_CIMEL/cimel_La_Paz.csv
+AOD_380nm,AOD,CIMEL,La Paz,0_Data/0_OBS_data/3_CIMEL/cimel_La_Paz.csv
+PW,cm,CIMEL,La Paz,0_Data/0_OBS_data/3_CIMEL/cimel_La_Paz.csv
+EAE_440_870,EAE,CIMEL,La Paz,0_Data/0_OBS_data/3_CIMEL/cimel_La_Paz.csv
+OAM,Dobson,CIMEL,La Paz,0_Data/0_OBS_data/3_CIMEL/cimel_La_Paz.csv
+Ozone,Dobson,CIMEL,La Paz,0_Data/0_OBS_data/3_CIMEL/cimel_La_Paz.csv
+NO2,Dobson?,CIMEL,La Paz,0_Data/0_OBS_data/3_CIMEL/cimel_La_Paz.csv
+Convective Available Potential Energy (CAPE),J kg-1,GOES,LFA,0_Data/3_SATELLITE_data/1_GOES/indices_estabilidad_atmosferica/CAPE_stations.csv
+Convective Available Potential Energy (CAPE),J kg-1,GOES,Airport,0_Data/3_SATELLITE_data/1_GOES/indices_estabilidad_atmosferica/CAPE_stations.csv
+Convective Available Potential Energy (CAPE),J kg-1,GOES,CHC,0_Data/3_SATELLITE_data/1_GOES/indices_estabilidad_atmosferica/CAPE_stations.csv
+Convective Available Potential Energy (CAPE),J kg-1,GOES,Ancohuma,0_Data/3_SATELLITE_data/1_GOES/indices_estabilidad_atmosferica/CAPE_stations.csv
+Stability Indices: K-Index (KI),K,GOES,LFA,0_Data/3_SATELLITE_data/1_GOES/indices_estabilidad_atmosferica/KI_stations.csv
+Stability Indices: K-Index (KI),K,GOES,Airport,0_Data/3_SATELLITE_data/1_GOES/indices_estabilidad_atmosferica/KI_stations.csv
+Stability Indices: K-Index (KI),K,GOES,CHC,0_Data/3_SATELLITE_data/1_GOES/indices_estabilidad_atmosferica/KI_stations.csv
+Stability Indices: K-Index (KI),K,GOES,Ancohuma,0_Data/3_SATELLITE_data/1_GOES/indices_estabilidad_atmosferica/KI_stations.csv
+Lifted Index (LI),K,GOES,LFA,0_Data/3_SATELLITE_data/1_GOES/indices_estabilidad_atmosferica/LI_stations.csv
+Lifted Index (LI),K,GOES,Airport,0_Data/3_SATELLITE_data/1_GOES/indices_estabilidad_atmosferica/LI_stations.csv
+Lifted Index (LI),K,GOES,CHC,0_Data/3_SATELLITE_data/1_GOES/indices_estabilidad_atmosferica/LI_stations.csv
+Lifted Index (LI),K,GOES,Ancohuma,0_Data/3_SATELLITE_data/1_GOES/indices_estabilidad_atmosferica/LI_stations.csv
+Showalter Index (SI),K,GOES,LFA,0_Data/3_SATELLITE_data/1_GOES/indices_estabilidad_atmosferica/SI_stations.csv
+Showalter Index (SI),K,GOES,Airport,0_Data/3_SATELLITE_data/1_GOES/indices_estabilidad_atmosferica/SI_stations.csv
+Showalter Index (SI),K,GOES,CHC,0_Data/3_SATELLITE_data/1_GOES/indices_estabilidad_atmosferica/SI_stations.csv
+Showalter Index (SI),K,GOES,Ancohuma,0_Data/3_SATELLITE_data/1_GOES/indices_estabilidad_atmosferica/SI_stations.csv
+Total Totals Index (TT),K,GOES,LFA,0_Data/3_SATELLITE_data/1_GOES/indices_estabilidad_atmosferica/TT_stations.csv
+Total Totals Index (TT),K,GOES,Airport,0_Data/3_SATELLITE_data/1_GOES/indices_estabilidad_atmosferica/TT_stations.csv
+Total Totals Index (TT),K,GOES,CHC,0_Data/3_SATELLITE_data/1_GOES/indices_estabilidad_atmosferica/TT_stations.csv
+Total Totals Index (TT),K,GOES,Ancohuma,0_Data/3_SATELLITE_data/1_GOES/indices_estabilidad_atmosferica/TT_stations.csv
+Moisture Vertical Profile,%,GOESVertProf,Airport,0_Data/3_SATELLITE_data/1_GOES/Humedad_perfil_vertical/Airport_stations.csv
+Moisture Vertical Profile,%,GOESVertProf,Ancohuma,0_Data/3_SATELLITE_data/1_GOES/Humedad_perfil_vertical/Ancohuma_stations.csv
+Moisture Vertical Profile,%,GOESVertProf,CHC,0_Data/3_SATELLITE_data/1_GOES/Humedad_perfil_vertical/CHC_stations.csv
+Moisture Vertical Profile,%,GOESVertProf,LFA,0_Data/3_SATELLITE_data/1_GOES/Humedad_perfil_vertical/LFA_stations.csv
