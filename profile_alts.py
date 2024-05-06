@@ -2,6 +2,12 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import numpy as np
+
+#plt.rc('xtick',labelsize=15)
+#plt.rc('ytick',labelsize=15)
+#plt.rc('ylabel',labelsize=15)
+plt.rc('font', size = 15)
+
 pth = '0_Data\\3_SATELLITE_data\\1_GOES\\Humedad_perfil_vertical\\Airport_stations.csv'
 
 d = pd.read_csv(pth, skiprows=7)
@@ -49,6 +55,11 @@ ax.invert_yaxis()
 #ax.pcolormesh(a.T)
 fig.colorbar(cmesh)
 
+fig, ax = plt.subplots()
+ax.scatter(a.T[:,583], pressures)
+ax.invert_yaxis()
+
+
 '''
 
 
@@ -87,6 +98,7 @@ y_, _ = a.shape
 x, y = np.meshgrid(numdates, pressures)
 fig, ax = plt.subplots(figsize = (10,6),layout = 'constrained')
 cmesh = ax.pcolormesh(x,y,a.T, cmap = 'jet')
+ax.set_title("Airport")
 ax.set_ylim(60,1000)
 ax2 = ax.secondary_yaxis('right', functions = (pressure_to_altitude, alt_to_press))
 ax2.set_ylabel('Altitude [m]')
@@ -99,8 +111,13 @@ ax.invert_yaxis()
 
 
 
-plt.figure()
+fig, ax = plt.subplots()
 altitudes = pressure_to_altitude(np.array(turnoffs))
 print(np.nanmean(altitudes), np.nanmedian(altitudes))
-plt.hist(altitudes)
-plt.show()
+ax.hist(altitudes)
+ax.set_ylabel('Frecuencia')
+ax.set_xlabel('Altura [m]')
+ax2 = ax.secondary_xaxis('top', functions = (alt_to_press, pressure_to_altitude))
+ax2.set_xlabel('Presión [mbar]')
+#plt.show()
+fig.savefig('figs/histo.png', dpi = 300)
