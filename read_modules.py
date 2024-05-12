@@ -159,3 +159,6 @@ class cimel:
         df = pd.Timestamp(dfinal)
         inner_trim(self,d0, df)
 
+
+if __name__ == "__main__":
+    print(cimel('La Paz').codes)

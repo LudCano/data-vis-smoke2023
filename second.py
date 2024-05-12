@@ -106,11 +106,9 @@ def print_picked(place, var, orig, n_clicks):
     if n_clicks>0:
         tabb = tab.copy()
         pii = tabb[(tabb.place == place) & (tabb.origin == orig) & (tabb.variable == var)]
-        #print(pii.path)
+        print(pii.path)
 
-        if orig == "GOES":
-            d, m = read_goes(str(pii.path[0]), place)
-            print(d.head())
+        
 
         return str(pii.path[0])
 
