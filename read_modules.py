@@ -34,11 +34,19 @@ class measurement_goes:
         d = d_df.merge(d,'left','datenum')
         #print(d.columns)
         place = " " + place
-        d = d.loc[:,['datenum','time_start_x',place]]
-        d.columns = ['datenum','time_start',place]
-        self.times = d.time_start.to_list()
-        self.data = np.array([float(i) for i in d[place]])
-        self.datenum = d.datenum.to_list()
+        d = d.loc[:,['time_start_x',place]]
+        d.columns = ['time_start',place]
+        d[place] = [float(i) for i in d[place]]
+        d['time_start'] = pd.to_datetime(d.time_start)
+        d['hora'] = d['time_start'].dt.hour
+        d['fecha'] = d['time_start'].dt.date
+        acum = d.groupby(['fecha', 'hora'])[place].mean()
+        df_acum = acum.to_frame().reset_index()
+        df_acum['time_start'] = [dt.datetime.combine(i, dt.time(j)) for i, j in zip(df_acum.fecha, df_acum.hora)]
+        df_acum = df_acum.loc[:,['time_start',place]]
+        self.times = df_acum.time_start.to_list()
+        self.data = np.array([float(i) for i in df_acum[place]])
+        #self.datenum = mdates.date2num(df_acum.time_start).to_list()
         #d = d.loc[:, ['time_start', place]]
         
         self.df = d
@@ -105,9 +113,16 @@ class measurement_cimel:
         cols = ["AOD_500nm","AOD_380nm","PW","EAE_440_870","OAM","Ozone","NO2"]
         dc = {i:j for i,j in zip(codes_lst, cols)} #creando un diccionario para relacionarlos
         col = dc[cod]
+        dlocal = pd.to_datetime(df.date_local)
+        # trimming
+        d0 = dt.datetime(2023,10,1)
+        dfinal = dt.datetime(2023,11,1)
+        df = df.loc[:, ['date_local', col]]
+        dff = df[(dlocal < dfinal) & (dlocal > d0)]
+        self.df = dff
         self.data = np.array(df[col])
-        self.df = df.loc[:, ['date_local', col]]
-        self.times = pd.to_datetime(df.date_local)
+        self.all_data = np.array(df[col])
+        self.times = pd.to_datetime(dff.date_local)
         self.datenum = mdates.date2num(self.times)
         self._metadata = m
 
@@ -160,5 +175,7 @@ class cimel:
         inner_trim(self,d0, df)
 
 
-if __name__ == "__main__":
-    print(cimel('La Paz').codes)
+
+if __name__ == '__main__':
+    a = goes('Airport')
+    print(a.AOD.times)
