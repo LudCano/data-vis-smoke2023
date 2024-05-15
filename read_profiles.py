@@ -16,7 +16,7 @@ def alt_to_press(altitude):
 class vert_profs:
 
     def __init__(self, place):
-        pth = f'../0_Data/3_SATELLITE_data/1_GOES/Humedad_perfil_vertical/{place}_stations.csv'
+        pth = f'0_Data/3_SATELLITE_data/1_GOES/Humedad_perfil_vertical/{place}_stations.csv'
 
         d = pd.read_csv(pth, skiprows=7)
         d.time_start = pd.to_datetime(d.time_start)
@@ -35,12 +35,13 @@ class vert_profs:
         hourly_times = []
         mean_mtx = []
         while ti<tf:
+            hourly_times.append(ti)
+            
             tx = ti + dt.timedelta(hours=1)
             lim0 = mdates.date2num(ti)
             limf = mdates.date2num(tx)
             aaa = np.where((lim0 <= t_nums) & (t_nums <= limf))[0]
             ti = tx
-            hourly_times.append(ti)
             
             mean_prof = np.nanmean(a[aaa[0]:aaa[-1]+1,:],axis=0)
             mean_mtx.append(mean_prof)
